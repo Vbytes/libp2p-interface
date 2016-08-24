@@ -9,6 +9,8 @@ public interface P2PModule {
 
     String getPlayPath(String channel);
 
+    void getPlayPath(String channel, OnLoadedListener listener);
+
     String getSDKVersion();
 
     String getStatistics();
