@@ -65,7 +65,7 @@ public class DynamicLibManager {
                 if (destFile != null) {
                     destFile.delete();
                 }
-                maxVersion = info[1];
+                maxVersion = info[info.length - 2];
                 destFile = file;
             }
         }
