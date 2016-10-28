@@ -56,7 +56,7 @@ public class DynamicLibManager {
         for (File file: appLibDir.listFiles(new FileFilter() {
             @Override
             public boolean accept(File file) {
-                return (file.getName().startsWith("lib" + fileid) && file.getName().endsWith(".so"));
+                return (file.getName().startsWith(fileid) && file.getName().endsWith(".so"));
             }
         })) {
             // libp2pmodule-v1.2.0-3a4e2bdc231.so
