@@ -29,7 +29,7 @@ public class DynamicLibManager {
         libDirPath = context.getFilesDir().getAbsolutePath() + File.separator + "vlib";
     }
 
-    public String locate(String fileid) throws Exception {
+    public String locate(final String fileid) throws Exception {
         // 删掉不必要的之前app版本的文件夹
         File libDir = new File(libDirPath);
         if (!libDir.exists()) {
@@ -56,12 +56,12 @@ public class DynamicLibManager {
         for (File file: appLibDir.listFiles(new FileFilter() {
             @Override
             public boolean accept(File file) {
-                return file.getName().endsWith(".so");
+                return (file.getName().startsWith("lib" + fileid) && file.getName().endsWith(".so"));
             }
         })) {
             // libp2pmodule-v1.2.0-3a4e2bdc231.so
             String[] info = file.getName().split("-");
-            if (info[1].compareTo(maxVersion) > 0) {
+            if (info.length > 2 && info[info.length - 2].compareTo(maxVersion) > 0) {
                 if (destFile != null) {
                     destFile.delete();
                 }
