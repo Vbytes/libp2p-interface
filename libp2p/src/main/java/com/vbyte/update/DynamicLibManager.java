@@ -52,14 +52,18 @@ public class DynamicLibManager {
             appLibDir.mkdir();
         }
         File destFile = null;
-        String maxVersion = "v0";
+        String maxVersion = "";
         for (File file: appLibDir.listFiles(new FileFilter() {
             @Override
             public boolean accept(File file) {
                 return (file.getName().startsWith(fileid) && file.getName().endsWith(".so"));
             }
         })) {
-            // libp2pmodule-v1.2.0-3a4e2bdc231.so
+            /**
+             * e.g.
+             *   libp2pmodule-v1.2.0-3a4e2bdc231.so
+             *   libvbyte-v7a-V2.2.6-3a4e2bdc231.so
+             */
             String[] info = file.getName().split("-");
             if (info.length > 2 && info[info.length - 2].compareTo(maxVersion) > 0) {
                 if (destFile != null) {
