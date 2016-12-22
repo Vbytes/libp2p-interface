@@ -14,6 +14,7 @@ import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Locale;
 
 /**
  * Created by passion on 16-9-20.
@@ -161,7 +162,7 @@ public class DynamicLibManager {
 
                         // 对比指纹是否正确
                         String md5sum = MD5Util.MD5(tmpFile);
-                        if (md5sum.toLowerCase().equals(fingerprint.toLowerCase())) {
+                        if (md5sum.toLowerCase(Locale.US).equals(fingerprint.toLowerCase())) {
                             String filePath = libDirPath + File.separator + getAppVersion()
                                     + File.separator + fileId + "-" + newVersion + "-" + fingerprint + ".so";
                             tmpFile.renameTo(new File(filePath));
