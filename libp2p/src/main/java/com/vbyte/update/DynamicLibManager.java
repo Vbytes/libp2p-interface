@@ -62,10 +62,10 @@ public class DynamicLibManager {
         })) {
             /**
              * e.g.
-             *   libp2pmodule-v1.2.0-3a4e2bdc231.so
-             *   libvbyte-v7a-V2.2.6-3a4e2bdc231.so
+             *   libp2pmodule_armeabi-v7a_v1.2.0_3a4e2bdc231.so
+             *   libvbyte-v7a_arm64-v8a_V2.2.6_3a4e2bdc231.so
              */
-            String[] info = file.getName().split("-");
+            String[] info = file.getName().split("_");
             if (info.length > 2 && info[info.length - 2].compareTo(maxVersion) > 0) {
                 if (destFile != null) {
                     destFile.delete();
@@ -77,16 +77,18 @@ public class DynamicLibManager {
         return (destFile == null ? null : destFile.getAbsolutePath());
     }
 
-    public void checkUpdate(final String fileId, final String version) {
+    public void checkUpdate(final String fileId, final String version, final String abi) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     String token = MD5Util.MD5((fileId + "ventureinc").getBytes());
                     StringBuffer sb = new StringBuffer();
-                    sb.append(UPDATE_HOST).append("?").append("fifoVersion=")
-                            .append(version).append("&token=").append(token)
-                            .append("&").append("fileId=").append(fileId);
+                    sb.append(UPDATE_HOST)
+                            .append("?fileId=").append(fileId)
+                            .append("&abi=").append(abi)
+                            .append("&fifoVersion=").append(version)
+                            .append("&token=").append(token);
                     URL url = new URL(sb.toString());
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setConnectTimeout(30_000);
@@ -108,7 +110,7 @@ public class DynamicLibManager {
                             String downloadUrl = jsonObj.getString("downloadUrl");
                             String newVersion = jsonObj.getString("version");
                             String fingerprint = jsonObj.getString("md5token");
-                            updateDynamicLib(fileId, downloadUrl, newVersion, fingerprint);
+                            updateDynamicLib(fileId, downloadUrl, newVersion, abi, fingerprint);
                         }
                     }
                 } catch (Exception e) {
@@ -117,9 +119,9 @@ public class DynamicLibManager {
             }
 
             private void updateDynamicLib(String fileId, String downloadUrl, String newVersion,
-                                          String fingerprint) throws Exception {
-                // vlib/7.0.3/libp2pmodule-v1.2.0-3a4e2bdc231.tmp
-                String tmpFileName = fileId + "-" + newVersion + "-" + fingerprint + ".tmp";
+                                          String abi, String fingerprint) throws Exception {
+                // vlib/7.0.3/libp2pmodule_armeabi-v7a_v1.2.0_3a4e2bdc231.tmp
+                String tmpFileName = fileId + "_" + abi + "_" + newVersion + "_" + fingerprint + ".tmp";
                 String tmpDirPath = libDirPath + File.separator + getAppVersion();
                 File tmpDir = new File(tmpDirPath);
                 // 删除无用的tmp文件
@@ -164,7 +166,8 @@ public class DynamicLibManager {
                         String md5sum = MD5Util.MD5(tmpFile);
                         if (md5sum.toLowerCase(Locale.US).equals(fingerprint.toLowerCase())) {
                             String filePath = libDirPath + File.separator + getAppVersion()
-                                    + File.separator + fileId + "-" + newVersion + "-" + fingerprint + ".so";
+                                    + File.separator + fileId + "_" + abi + "_"
+                                    + newVersion + "_" + fingerprint + ".so";
                             tmpFile.renameTo(new File(filePath));
                         }
                         tmpFile.delete();
