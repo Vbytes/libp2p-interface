@@ -33,16 +33,17 @@ public interface IController {
      * @param channel 对直播是频道ID，对点播是资源链接
      * @param resolution 统一为 "UHD"
      * @return
-     * @throws Exception
+     * @throws Exception 当load/unload没有成对调用时，会抛出异常
      */
     Uri loadAsync(String channel, String resolution) throws Exception;
+
     /**
      * 同步加载一个频道
      * @param channel 资源链接，主要为点播调用
      * @param resolution 统一为 "UHD"
      * @param startTime 视频的起始位置，以秒为单位
      * @return
-     * @throws Exception
+     * @throws Exception 当load/unload没有成对调用时，会抛出异常
      */
     Uri loadAsync(String channel, String resolution, double startTime) throws Exception;
 
