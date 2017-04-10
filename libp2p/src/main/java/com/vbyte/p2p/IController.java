@@ -2,8 +2,6 @@ package com.vbyte.p2p;
 
 import android.net.Uri;
 
-import com.vbyte.p2p.OnLoadedListener;
-
 /**
  * Created by passion on 16-1-14.
  */
@@ -61,4 +59,10 @@ public interface IController {
      * 卸载一个频道或者卸载一个vod视频，释放其占用的资源
      */
     void unload();
+
+    /**
+     * 获取播放统计信息
+     * @return
+     */
+    String playStreamInfo();
 }
