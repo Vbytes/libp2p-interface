@@ -65,4 +65,5 @@ public interface IController {
      * @return
      */
     String playStreamInfo();
+
 }
