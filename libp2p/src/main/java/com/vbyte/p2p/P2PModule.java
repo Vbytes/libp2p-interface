@@ -1,7 +1,5 @@
 package com.vbyte.p2p;
 
-import android.os.Handler;
-
 /**
  * Created by passion on 16-5-10.
  */
