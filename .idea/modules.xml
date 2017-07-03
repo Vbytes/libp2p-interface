@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/libp2p/libp2p.iml" filepath="$PROJECT_DIR$/libp2p/libp2p.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libp2p/libp2p.iml" filepath="$PROJECT_DIR$/libp2p/libp2p.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libp2p-interface.iml" filepath="$PROJECT_DIR$/libp2p-interface.iml" />
       <module fileurl="file://$PROJECT_DIR$/libp2p-interface.iml" filepath="$PROJECT_DIR$/libp2p-interface.iml" />
     </modules>
   </component>
