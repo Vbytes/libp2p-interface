@@ -20,7 +20,7 @@ import java.util.Locale;
  * Created by passion on 16-9-20.
  */
 public class DynamicLibManager {
-    private static final String UPDATE_HOST = "http://update.vbyte.cn/checkupdate";
+    private static final String UPDATE_HOST = "http://update.qvb.qcloud.com/checkupdate";
 
     private Context context;
     private String libDirPath;
